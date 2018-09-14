@@ -8,8 +8,10 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = pretmap
+TARGET = porymap
 TEMPLATE = app
+RC_ICONS = resources/icons/porymap-icon-1.ico
+ICON = resources/icons/porymap-icon-1.ico
 
 
 SOURCES += main.cpp\
@@ -21,14 +23,14 @@ SOURCES += main.cpp\
     tileset.cpp \
     tile.cpp \
     event.cpp \
+    heallocation.cpp \
     editor.cpp \
     objectpropertiesframe.cpp \
     graphicsview.cpp \
     parseutil.cpp \
     neweventtoolbutton.cpp \
     noscrollcombobox.cpp \
-    noscrollspinbox.cpp \
-    heallocation.cpp
+    noscrollspinbox.cpp
 
 HEADERS  += mainwindow.h \
     project.h \
@@ -38,14 +40,14 @@ HEADERS  += mainwindow.h \
     tileset.h \
     tile.h \
     event.h \
+    heallocation.h \
     editor.h \
     objectpropertiesframe.h \
     graphicsview.h \
     parseutil.h \
     neweventtoolbutton.h \
     noscrollcombobox.h \
-    noscrollspinbox.h \
-    heallocation.h
+    noscrollspinbox.h
 
 FORMS    += mainwindow.ui \
     objectpropertiesframe.ui
