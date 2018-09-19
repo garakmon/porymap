@@ -20,6 +20,8 @@ class MetatilesPixmapItem;
 class BorderMetatilesPixmapItem;
 class CurrentSelectedMetatilesPixmapItem;
 class MovementPermissionsPixmapItem;
+class RegionMapLayoutPixmapItem;// region_map_layout.h
+class CityMapMetatilesPixmapItem;// is this just a metatilepixmapitem? or inherits members and adds a few?
 
 #define SWAP(a, b) do { if (a != b) { a ^= b; b ^= a; a ^= b; } } while (0)
 
@@ -50,6 +52,8 @@ public:
     void displayMapConnections();
     void displayMapBorder();
     void displayMapGrid();
+    void displayCityMapMetatiles();
+    //
 
     void setEditingMap();
     void setEditingCollision();
@@ -95,7 +99,10 @@ public:
     QGraphicsScene *scene_selected_border_metatiles = nullptr;
     QGraphicsScene *scene_collision_metatiles = nullptr;
     QGraphicsScene *scene_elevation_metatiles = nullptr;
+    QGraphicsScene *scene_region_map = nullptr;
+    QGraphicsScene *scene_city_map_metatiles = nullptr;
     MetatilesPixmapItem *metatiles_item = nullptr;
+    CityMapMetatilesPixmapItem *city_map_metatiles_item = nullptr;
 
     BorderMetatilesPixmapItem *selected_border_metatiles_item = nullptr;
     CurrentSelectedMetatilesPixmapItem *scene_current_metatile_selection_item = nullptr;
@@ -369,6 +376,30 @@ public:
         connect(map, SIGNAL(paintTileChanged()), this, SLOT(paintTileChanged()));
     }
     Map* map = nullptr;
+    virtual void draw();
+private:
+    void updateSelection(QPointF pos);
+protected:
+    virtual void updateCurHoveredMetatile(QPointF pos);
+private slots:
+    void paintTileChanged();
+protected:
+    void hoverMoveEvent(QGraphicsSceneHoverEvent*);
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent*);
+    void mousePressEvent(QGraphicsSceneMouseEvent*);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent*);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent*);
+};
+
+class CityMapMetatilesPixmapItem : public QObject, public QGraphicsPixmapItem {
+    Q_OBJECT
+public:
+    CityMapMetatilesPixmapItem() {
+        //map = map_;
+        setAcceptHoverEvents(true);
+        //connect(map, SIGNAL(paintTileChanged()), this, SLOT(paintTileChanged()));
+    }
+    //Map* map = nullptr;
     virtual void draw();
 private:
     void updateSelection(QPointF pos);

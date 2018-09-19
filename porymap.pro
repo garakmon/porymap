@@ -18,6 +18,7 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     project.cpp \
     map.cpp \
+    regionmap.cpp \
     blockdata.cpp \
     block.cpp \
     tileset.cpp \
@@ -35,6 +36,7 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     project.h \
     map.h \
+    regionmap.h \
     blockdata.h \
     block.h \
     tileset.h \

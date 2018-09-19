@@ -435,6 +435,7 @@ void Editor::displayMap() {
     );
 
     displayMetatiles();
+    displayCityMapMetatiles();
     displayBorderMetatiles();
     displayCurrentMetatilesSelection();
     displayCollisionMetatiles();
@@ -464,6 +465,19 @@ void Editor::displayMetatiles() {
     metatiles_item = new MetatilesPixmapItem(map);
     metatiles_item->draw();
     scene_metatiles->addItem(metatiles_item);
+}
+
+void Editor::displayCityMapMetatiles() {
+    if (city_map_metatiles_item && city_map_metatiles_item->scene()) {
+        //
+        city_map_metatiles_item->scene()->removeItem(city_map_metatiles_item);
+        delete city_map_metatiles_item;
+    }
+
+    scene_city_map_metatiles = new QGraphicsScene;
+    city_map_metatiles_item = new MetatilesPixmapItem(map); // new CityMapMetatilesPixmapItem();
+    city_map_metatiles_item->draw();
+    scene_city_map_metatiles->addItem(city_map_metatiles_item);
 }
 
 void Editor::displayBorderMetatiles() {

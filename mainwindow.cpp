@@ -170,6 +170,15 @@ void MainWindow::setMap(QString map_name) {
     redrawMapScene();
     displayMapProperties();
 
+    /* scroll mapList
+    qDebug() << "Scrolling to " << ui->mapList->currentIndex() << "?";
+    //ui->mapList->update();//scrollContentsBy(0,100); //scrollTo(ui->mapList->currentIndex()); //(ui->mapList->model()->index(0,15));
+    ui->mapList->setFocus(); //setFocus();
+    ui->mapList->setCurrentIndex();
+    //clicked(ui->mapList->currentIndex());//model()->
+    */
+    //ui->mapList->setAutoScroll(true);
+
     setWindowTitle(map_name + " - " + editor->project->getProjectTitle() + " - porymap");
 
     connect(editor->map, SIGNAL(mapChanged(Map*)), this, SLOT(onMapChanged(Map *)));
@@ -211,6 +220,10 @@ void MainWindow::redrawMapScene()
     ui->graphicsView_Collision->setScene(editor->scene_collision_metatiles);
     //ui->graphicsView_Collision->setSceneRect(editor->scene_collision_metatiles->sceneRect());
     ui->graphicsView_Collision->setFixedSize(editor->collision_metatiles_item->pixmap().width() + 2, editor->collision_metatiles_item->pixmap().height() + 2);
+
+    // should update selected tile based on map drawn
+    //ui->graphicsView_Region_Map->setScene(editor->project->region_map);
+    ui->graphicsView_City_Map_Metatiles->setScene(editor->scene_city_map_metatiles);
 }
 
 void MainWindow::openWarpMap(QString map_name, QString warp_num) {

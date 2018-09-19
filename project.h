@@ -4,6 +4,7 @@
 #include "map.h"
 #include "blockdata.h"
 #include "heallocation.h"
+#include "regionmap.h"
 
 #include <QStringList>
 #include <QList>
@@ -44,6 +45,9 @@ public:
     QMap<QString, Map*> *map_cache;
     Map* loadMap(QString);
     Map* getMap(QString);
+
+    RegionMap* region_map;
+    void loadRegionMap(); // (RegionMap&) or no args () ?
 
     QMap<QString, Tileset*> *tileset_cache = nullptr;
     Tileset* loadTileset(QString);
