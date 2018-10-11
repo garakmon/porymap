@@ -475,6 +475,8 @@ void Editor::displayMap() {
     }
 
     displayMetatileSelector();
+    displayTilemapTileSelector();
+    //displayCityMapMetatileSelector();
     displayMovementPermissionSelector();
     displayMapMetatiles();
     displayMapMovementPermissions();
@@ -518,6 +520,58 @@ void Editor::displayMetatileSelector() {
 
     scene_metatiles->addItem(metatile_selector_item);
 }
+
+void Editor::displayTilemapTileSelector() {
+    if (region_map_tile_selector_item && region_map_tile_selector_item->scene()) {
+        region_map_tile_selector_item->scene()->removeItem(region_map_tile_selector_item);
+        delete scene_region_map_img_tiles;
+    }
+
+    scene_region_map_img_tiles = new QGraphicsScene;
+    if (!region_map_tile_selector_item) {
+        region_map_tile_selector_item = new TilemapTileSelector(8, map->layout->tileset_primary);
+        connect(region_map_tile_selector_item, SIGNAL(hoveredMetatileSelectionChanged(uint16_t)),
+                this, SLOT(onHoveredMetatileSelectionChanged(uint16_t)));
+        connect(region_map_tile_selector_item, SIGNAL(hoveredMetatileSelectionCleared()),
+                this, SLOT(onHoveredMetatileSelectionCleared()));
+        connect(region_map_tile_selector_item, SIGNAL(selectedMetatilesChanged()),
+                this, SLOT(onSelectedMetatilesChanged()));
+        region_map_tile_selector_item->select(0);
+    } else {
+        region_map_tile_selector_item->setTileset(map->layout->tileset_primary);//, map->layout->tileset_secondary);
+    }
+
+    scene_region_map_img_tiles->addItem(region_map_tile_selector_item);
+}
+/*
+void Editor::displayCityMapMetatileSelector() {
+    //
+    if (city_map_metatile_selector_item && city_map_metatile_selector_item->scene()) {
+        city_map_metatile_selector_item->scene()->removeItem(city_map_metatile_selector_item);
+        delete scene_city_map_metatiles;
+    }
+
+    scene_city_map_metatiles = new QGraphicsScene;
+
+    if (!city_map_metatile_selector_item) {
+        //city_map_metatile_selector_item = new MetatileSelector(8, tileset_city_map, nullptr);
+        city_map_metatile_selector_item = new TilemapTileSelector(8, map->layout->tileset_primary);
+        connect(city_map_metatile_selector_item, SIGNAL(hoveredMetatileSelectionChanged(uint16_t)),
+                this, SLOT(onHoveredMetatileSelectionChanged(uint16_t)));
+        connect(city_map_metatile_selector_item, SIGNAL(hoveredMetatileSelectionCleared()),
+                this, SLOT(onHoveredMetatileSelectionCleared()));
+        connect(city_map_metatile_selector_item, SIGNAL(selectedMetatilesChanged()),
+                this, SLOT(onSelectedMetatilesChanged()));
+        //city_map_metatile_selector_item->select(0);
+    } else {
+        city_map_metatile_selector_item->setTileset(tileset_city_map);
+        // wont take nullptr as second item without seg faulting
+        //city_map_metatile_selector_item->setTileset(map->layout->tileset_primary);//, map->layout->tileset_secondary);
+    }
+
+    scene_city_map_metatiles->addItem(city_map_metatile_selector_item);
+}
+*/
 
 void Editor::displayMapMetatiles() {
     map_item = new MapPixmapItem(map, this->metatile_selector_item, this->settings);

@@ -41,6 +41,7 @@ Project::Project()
     mapConstantsToMapNames = new QMap<QString, QString>;
     mapNamesToMapConstants = new QMap<QString, QString>;
     tileset_cache = new QMap<QString, Tileset*>;
+    region_map = new RegionMap;
 }
 
 QString Project::getProjectTitle() {
@@ -1273,6 +1274,13 @@ void Project::readTilesetProperties() {
             qDebug() << "Some global tileset values could not be loaded. Using default values";
         }
     }
+}
+
+void Project::loadRegionMapData() {
+    //
+    //QString path = root;
+    region_map->init(root);
+    //qDebug() << "yo";
 }
 
 void Project::readRegionMapSections() {

@@ -2,6 +2,7 @@
 #define PROJECT_H
 
 #include "map.h"
+#include "regionmap.h"
 #include "blockdata.h"
 #include "heallocation.h"
 
@@ -42,6 +43,9 @@ public:
     QStringList mapsWithConnections;
     QMap<QString, int> metatileBehaviorMap;
     QMap<int, QString> metatileBehaviorMapInverse;
+
+    RegionMap *region_map;
+    void loadRegionMapData();
 
     QMap<QString, Map*> *map_cache;
     Map* loadMap(QString);

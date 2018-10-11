@@ -20,6 +20,7 @@ SOURCES += src/core/block.cpp \
     src/core/heallocation.cpp \
     src/core/historyitem.cpp \
     src/core/map.cpp \
+    src/core/regionmap.cpp \
     src/core/maplayout.cpp \
     src/core/metatile.cpp \
     src/core/parseutil.cpp \
@@ -36,6 +37,7 @@ SOURCES += src/core/block.cpp \
     src/ui/mapsceneeventfilter.cpp \
     src/ui/metatilelayersitem.cpp \
     src/ui/metatileselector.cpp \
+    src/ui/tilemaptileselector.cpp \
     src/ui/movementpermissionsselector.cpp \
     src/ui/neweventtoolbutton.cpp \
     src/ui/noscrollcombobox.cpp \
@@ -58,6 +60,7 @@ HEADERS  += include/core/block.h \
     include/core/history.h \
     include/core/historyitem.h \
     include/core/map.h \
+    include/core/regionmap.h \
     include/core/mapconnection.h \
     include/core/maplayout.h \
     include/core/metatile.h \
@@ -75,6 +78,7 @@ HEADERS  += include/core/block.h \
     include/ui/mapsceneeventfilter.h \
     include/ui/metatilelayersitem.h \
     include/ui/metatileselector.h \
+    include/ui/tilemaptileselector.h \
     include/ui/movementpermissionsselector.h \
     include/ui/neweventtoolbutton.h \
     include/ui/noscrollcombobox.h \

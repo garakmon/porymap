@@ -81,6 +81,9 @@ void MainWindow::loadUserSettings() {
 }
 
 void MainWindow::openRecentProject() {
+    //QSettings settings;
+    //settings.clear();
+    //*
     QSettings settings;
     QString key = "recent_projects";
     if (settings.contains(key)) {
@@ -90,6 +93,7 @@ void MainWindow::openRecentProject() {
             openProject(default_dir);
         }
     }
+    //*/
 }
 
 void MainWindow::openProject(QString dir) {
@@ -226,6 +230,8 @@ void MainWindow::redrawMapScene()
     ui->graphicsView_Metatiles->setScene(editor->scene_metatiles);
     //ui->graphicsView_Metatiles->setSceneRect(editor->scene_metatiles->sceneRect());
     ui->graphicsView_Metatiles->setFixedSize(editor->metatile_selector_item->pixmap().width() + 2, editor->metatile_selector_item->pixmap().height() + 2);
+
+    ui->graphicsView_Region_Map_Metatiles->setScene(editor->scene_region_map_img_tiles);//scene_city_map_metatiles);
 
     ui->graphicsView_BorderMetatile->setScene(editor->scene_selected_border_metatiles);
     ui->graphicsView_BorderMetatile->setFixedSize(editor->selected_border_metatiles_item->pixmap().width() + 2, editor->selected_border_metatiles_item->pixmap().height() + 2);
@@ -409,6 +415,7 @@ void MainWindow::loadDataStructures() {
     project->readMapsWithConnections();
     project->readMetatileBehaviors();
     project->readTilesetProperties();
+    project->loadRegionMapData();
 }
 
 void MainWindow::populateMapList() {

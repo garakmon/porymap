@@ -11,6 +11,7 @@
 
 #include "mapconnection.h"
 #include "metatileselector.h"
+#include "tilemaptileselector.h"
 #include "movementpermissionsselector.h"
 #include "project.h"
 #include "ui_mainwindow.h"
@@ -42,6 +43,7 @@ public:
     void setMap(QString map_name);
     void displayMap();
     void displayMetatileSelector();
+    void displayTilemapTileSelector();
     void displayMapMetatiles();
     void displayMapMovementPermissions();
     void displayBorderMetatiles();
@@ -53,6 +55,7 @@ public:
     void displayMapConnections();
     void displayMapBorder();
     void displayMapGrid();
+    void displayCityMapMetatileSelector();
 
     void setEditingMap();
     void setEditingCollision();
@@ -95,11 +98,22 @@ public:
     QList<QGraphicsLineItem*> gridLines;
 
     QGraphicsScene *scene_metatiles = nullptr;
+    QGraphicsScene *scene_region_map_img_tiles = nullptr;
+    //QGraphicsScene *scene_city_map_metatiles = nullptr;
     QGraphicsScene *scene_current_metatile_selection = nullptr;
     QGraphicsScene *scene_selected_border_metatiles = nullptr;
     QGraphicsScene *scene_collision_metatiles = nullptr;
     QGraphicsScene *scene_elevation_metatiles = nullptr;
     MetatileSelector *metatile_selector_item = nullptr;
+    TilemapTileSelector *region_map_tile_selector_item = nullptr;
+    //TilemapTileSelector *city_map_metatile_selector_item = nullptr;
+
+    //RegionMap *region_map; // ?
+
+    QString tileset_city_map_layout;
+    QString tileset_region_map_layout;
+    Tileset *tileset_city_map = nullptr; // ?
+    Tileset *tileset_region_map = nullptr; // ? are these really tilesets ?
 
     BorderMetatilesPixmapItem *selected_border_metatiles_item = nullptr;
     CurrentSelectedMetatilesPixmapItem *scene_current_metatile_selection_item = nullptr;
