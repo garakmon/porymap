@@ -43,7 +43,7 @@ void TilemapTileSelector::select(uint8_t tile) {
 void TilemapTileSelector::setTileset(Tileset* tileset) {
     //
     this->tileset = tileset;
-    this->draw();
+    //this->draw();
 }
 
 uint8_t TilemapTileSelector::getSelectedTile() {

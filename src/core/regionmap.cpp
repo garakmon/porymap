@@ -23,11 +23,13 @@ void RegionMap::init(QString path) {
     region_map_tilemap_path = path + "/graphics/pokenav/region_map.png";
     region_map_layout_path = path + "/src/data/region_map_layout.h";
 
-    readBkgImgBin();
-    readLayout();
+    //readBkgImgBin();
+    //readLayout();
 
-    saveBkgImgBin();
-    saveLayout();
+    //loadBkgImgTileset();
+
+    //saveBkgImgBin();
+    //saveLayout();
 }
 
 void RegionMap::readBkgImgBin() {
@@ -63,6 +65,45 @@ void RegionMap::saveBkgImgBin() {
     if (!file.open(QIODevice::WriteOnly)) return;
     file.write(data);
     file.close();
+}
+
+/*
+    QString name;
+    QString is_compressed;
+    QString is_secondary;
+    QString padding;
+    QString tiles_label;
+    QString palettes_label;
+    QString metatiles_label;
+    QString metatiles_path;
+    QString callback_label;
+    QString metatile_attrs_label;
+    QString metatile_attrs_path;
+    QString tilesImagePath;
+    QImage tilesImage;
+    QList<QString> palettePaths;
+
+    QList<QImage> *tiles = nullptr;
+    QList<Metatile*> *metatiles = nullptr;
+    QList<QList<QRgb>> *palettes = nullptr;
+*/
+void RegionMap::loadBkgImgTileset() {
+    //
+    // path: region_map_tilemap_path
+    // set values of tileset_bkg_img
+    //QImage *image = new QImage("region_map_tilemap_path");
+    //image.load();
+    //QList<QImage> *tiles = new QList<QImage>;
+    //int w = 1;
+    //int h = 1;
+    //for (int y = 0; y < 2; y+=h) {//image.height(); y += h) {
+    //    for (int x = 0; x < 2; x += w) {//image.width(); x += w) {
+        //    QImage tile = image.copy(x, y, w, h);
+        //    tiles->append(tile);
+    //    }
+    //}
+    //tileset->tilesImage = image;
+    //tileset_bkg_img->tiles = tiles;
 }
 
 // done

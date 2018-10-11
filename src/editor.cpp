@@ -530,7 +530,7 @@ void Editor::displayTilemapTileSelector() {
 
     scene_region_map_img_tiles = new QGraphicsScene;
     if (!region_map_tile_selector_item) {
-        region_map_tile_selector_item = new TilemapTileSelector(8, map->layout->tileset_primary);
+        region_map_tile_selector_item = new TilemapTileSelector(8, project->region_map->tileset_bkg_img);
         connect(region_map_tile_selector_item, SIGNAL(hoveredMetatileSelectionChanged(uint16_t)),
                 this, SLOT(onHoveredMetatileSelectionChanged(uint16_t)));
         connect(region_map_tile_selector_item, SIGNAL(hoveredMetatileSelectionCleared()),
@@ -539,7 +539,7 @@ void Editor::displayTilemapTileSelector() {
                 this, SLOT(onSelectedMetatilesChanged()));
         region_map_tile_selector_item->select(0);
     } else {
-        region_map_tile_selector_item->setTileset(map->layout->tileset_primary);//, map->layout->tileset_secondary);
+        region_map_tile_selector_item->setTileset(project->region_map->tileset_bkg_img);//map->layout->tileset_primary);//, map->layout->tileset_secondary);
     }
 
     scene_region_map_img_tiles->addItem(region_map_tile_selector_item);

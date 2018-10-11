@@ -1,0 +1,1150 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"gU",
+				"gUnknown_083D9D6C"
+			],
+			[
+				"g",
+				"gBattleAnimArgs"
+			],
+			[
+				"sp",
+				"sprite"
+			],
+			[
+				"gA",
+				"gAnimDisableStructPtr"
+			],
+			[
+				"spr",
+				"sprite"
+			],
+			[
+				"sub",
+				"subpriority"
+			],
+			[
+				"gB",
+				"gBattleAnimArgs"
+			],
+			[
+				"gS",
+				"gSineTable"
+			],
+			[
+				"De",
+				"DestroySprite"
+			],
+			[
+				"in",
+				"inBattle"
+			],
+			[
+				"G",
+				"GetBattlerSpriteCoord"
+			],
+			[
+				"Get",
+				"GetBattlerSpriteCoord"
+			],
+			[
+				"gBa",
+				"gBattleAnimArgs"
+			],
+			[
+				"t",
+				"taskId"
+			],
+			[
+				"REG",
+				"REG_BG1CNT"
+			],
+			[
+				"R",
+				"REG_BG1CNT"
+			],
+			[
+				"I",
+				"InitAnimSpritePos"
+			],
+			[
+				"ti",
+				"tileNum"
+			],
+			[
+				"y",
+				"y"
+			],
+			[
+				"pos",
+				"pos1"
+			],
+			[
+				"0xFF",
+				"0xFF"
+			],
+			[
+				"po",
+				"pos2"
+			],
+			[
+				"S",
+				"StoreSpriteCallbackInData"
+			],
+			[
+				"Ge",
+				"GetBattlerSide"
+			],
+			[
+				"Re",
+				"ResetTasks"
+			],
+			[
+				"Rese",
+				"ResetSpriteData"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "include/mainwindow.h",
+			"settings":
+			{
+				"buffer_size": 4866,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/mainwindow.cpp",
+			"settings":
+			{
+				"buffer_size": 46241,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "include/editor.h",
+			"settings":
+			{
+				"buffer_size": 9749,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/editor.cpp",
+			"settings":
+			{
+				"buffer_size": 42464,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "include/project.h",
+			"settings":
+			{
+				"buffer_size": 5390,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/project.cpp",
+			"settings":
+			{
+				"buffer_size": 69604,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "include/core/regionmap.h",
+			"settings":
+			{
+				"buffer_size": 2965,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/core/regionmap.cpp",
+			"settings":
+			{
+				"buffer_size": 1438,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/graphics/pokenav/region_map_map.bin",
+			"settings":
+			{
+				"buffer_size": 10240,
+				"encoding": "Hexadecimal",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "include/core/map.h",
+			"settings":
+			{
+				"buffer_size": 2492,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "include/ui/imageproviders.h",
+			"settings":
+			{
+				"buffer_size": 458,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/ui/imageproviders.cpp",
+			"settings":
+			{
+				"buffer_size": 6092,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "include/ui/metatileselector.h",
+			"settings":
+			{
+				"buffer_size": 1752,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "include/ui/tilemaptileselector.h",
+			"settings":
+			{
+				"buffer_size": 1551,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "#"
+			}
+		},
+		{
+			"file": "src/ui/metatileselector.cpp",
+			"settings":
+			{
+				"buffer_size": 5434,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/ui/tilemaptileselector.cpp",
+			"settings":
+			{
+				"buffer_size": 2174,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "include/ui/selectablepixmapitem.h",
+			"settings":
+			{
+				"buffer_size": 1298,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/core/metatile.cpp",
+			"settings":
+			{
+				"buffer_size": 588,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/core/tileset.cpp",
+			"settings":
+			{
+				"buffer_size": 3056,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/include",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/include/core",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/include/ui",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/src",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/src/core",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/src/ui"
+	],
+	"file_history":
+	[
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/graphics/pokenav/region_map.png",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/porymap.pro",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/src/core/map.cpp",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/include/core/maplayout.h",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/include/core/map.h",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/include/ui/connectionpixmapitem.h",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap/src/ui/connectionpixmapitem.cpp",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby-hackathon/data/maps/LittlerootTown/events.inc",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby-hackathon/asm/battle_anim_812C144.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby-hackathon/src/battle/anim/heart_1.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby-hackathon/src/main_menu.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby-hackathon/src/menu.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby-hackathon/src/new_game.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby-hackathon/src/intro.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby-hackathon/data/maps/Route102/events.inc",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby-hackathon/data/maps/LittlerootTown/scripts.inc",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby-hackathon/data/maps/Route104/events.inc",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/graphics/battle_terrain/cave/map.bin",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/build/ruby_de/src/pokenav_before.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/pokenav_before.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/move_tutor_menu.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/include/strings2.h",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/data-de/strings2.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/data/pokenav_city_maps.h",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/data/graphics.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/battle/battle_bg.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/data/pokenav_city_maps_2.h",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/data/text/gift_ribbon_descriptions_en.h",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/data/text/gift_ribbon_descriptions_de.h",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/Makefile",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/data/battle_anim_scripts.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/asm/battle_anim_812C144.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/include/rom_8077ABC.h",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/rom_8077ABC.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/battle/anim/ice.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/battle/anim/fire.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/battle/anim/normal.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/battle/battle_anim_813F0F4.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/battle/anim/rock.c",
+		"/Users/Thomas/Applications/Qt/5.11.1/Src/qtbase/include/QtCore/qcoreevent.h",
+		"/Users/Thomas/Applications/Qt/5.11.1/Src/qtbase/src/corelib/kernel/qcoreevent.h",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/agbcc/build.sh",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/agbcc/make.txt",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/rhmc/src/rom.cpp",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/testing/current_func",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/testing/pokecrystal/bt-evs.py",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/INSTALL.md",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/src/region_map.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby-heal-loc/data/event_scripts.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/INSTALL.md",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/data-de/event_scripts.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/region_map.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/notes",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/Tools/pretmap_release_steps",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/planning/notes",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/planning/pokedex",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/planning/pokepainter",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/planning/devlog",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/planning/characters",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/planning/hackathon",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/planning/pokeruby_notes",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/mysteps",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/planning/story/features",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/Makefile",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/asm/ice.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/pokeruby.map",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/sample.s",
+		"/Users/Thomas/.Trash/pokeruby/src/battle/anim/ice.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pokehack_gui/features",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/planning/story/story",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/planning/ideas",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/current_func.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/planning/region/mapnotes",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/ld_script.txt",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/.gitignore",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/src/pokedex_area_screen.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/src/pokedex_area_screen.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/asm/pokedex_area_screen.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/asm/shop.s",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/src/shop.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/tools/aif2pcm/main.c",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/tools/aif2pcm/Makefile",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/tools/bin2c/Makefile",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/tools/scaninc/Makefile",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/tools/gbagfx/Makefile",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/tools/rsfont/Makefile",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/tools/ramscrgen/Makefile",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/tools/preproc/Makefile",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/tools/mid2agb/Makefile",
+		"/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeemerald/out.make"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"connect(",
+			"draw",
+			"png",
+			"~",
+			"delete",
+			"region_map",
+			"map_edit_mode",
+			"root ",
+			"root =",
+			"openrecent",
+			"scene_city_map_metatiles",
+			"displayCityMapMetatileSelector",
+			"setTileset",
+			"draw_s",
+			"loadDataStructures",
+			"path",
+			"root",
+			"select(",
+			"_de",
+			"displayCityMapMetatileSelector",
+			"loadTilesetTiles",
+			"externalSelectedMetatiles",
+			"getMetatileImage",
+			"draw",
+			"primaryLength",
+			"getMetatileImage",
+			"draw",
+			"displayCityMapMetatileSelector",
+			"loadTilesetTiles",
+			"tilesets",
+			"tileset",
+			"tilesets",
+			"tileset",
+			"tileset_primary",
+			"metatile_selector_item",
+			"secondaryTileset",
+			"displayCityMapMetatileSelector",
+			"displayMetatileSelector",
+			"scene_metatiles",
+			"graphicsView_Metatiles",
+			"round"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"folders":
+	[
+		{
+			"path": "/Users/Thomas/Documents/College/Career/Projects/pkmn/porymap"
+		}
+	],
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "include/mainwindow.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4866,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								818,
+								818
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1551.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/mainwindow.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 46241,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								44755,
+								44763
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 15385.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "include/editor.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9749,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3644,
+								3644
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1828.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/editor.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 42464,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								448,
+								448
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "include/project.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5390,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2035,
+								2037
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 552.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/project.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 69604,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1926,
+								1933
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 604.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "include/core/regionmap.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2965,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2164,
+								2164
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 668.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/core/regionmap.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1438,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								369,
+								369
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 3.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/Thomas/Documents/College/Career/Projects/pkmn/pokeruby/graphics/pokenav/region_map_map.bin",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10240,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2919,
+								2919
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 127.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "include/core/map.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2492,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2400,
+								2400
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 198.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "include/ui/imageproviders.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 458,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								271,
+								271
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "src/ui/imageproviders.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6092,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2859,
+								2873
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "include/ui/metatileselector.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1752,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								721,
+								721
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 14.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "include/ui/tilemaptileselector.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1551,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								225,
+								225
+							]
+						],
+						"settings":
+						{
+							"auto_name": "#",
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "src/ui/metatileselector.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5434,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								562,
+								562
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 47.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "src/ui/tilemaptileselector.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2174,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								644,
+								644
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "include/ui/selectablepixmapitem.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1298,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								716,
+								716
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "src/core/metatile.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 588,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "src/core/tileset.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3056,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								146,
+								146
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 76.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 283.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -68,6 +68,9 @@ public:
     QString city_map_header_path;//dafuq is this?
     QString region_map_layout_path;
 
+    Tileset *tileset_bkg_img;
+    Tileset *tileset_city_map;
+
     //QMap<QString, somthing> something;// name of map : info about city map, position in layoit, etc.
     //QMap<QString, TilemapTile*> regionMapLayoutTng; // mapName : tilemaptileselector
     // maybe position data to select correct square when changing map on side but only if map is a valid
@@ -83,7 +86,9 @@ public:
 
     // parseutil.cpp ?
     void readBkgImgBin();
+    void loadBkgImgTileset();
     void readCityMaps();// more complicated
+    void loadCityMapTileset();
     void readLayout();
 
     QString newAbbr(QString);// makes a *unique* 5 character abbreviation from mapname to add to mapname_abbr

@@ -141,7 +141,7 @@ QImage getTileImage(uint16_t tile, Tileset *primaryTileset, Tileset *secondaryTi
 
 QImage getTileImage(uint8_t tile, Tileset *tileset) {
     //
-    int local_index = 3;// change obviously
+    int local_index = tile;// change obviously
     if (!tileset || !tileset->tiles) {
         return QImage();
     }
