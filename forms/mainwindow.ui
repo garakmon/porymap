@@ -482,13 +482,8 @@
                     <rect>
                      <x>0</x>
                      <y>0</y>
-<<<<<<< HEAD
-                     <width>545</width>
-                     <height>587</height>
-=======
                      <width>481</width>
                      <height>606</height>
->>>>>>> upstream/master
                     </rect>
                    </property>
                    <layout class="QGridLayout" name="gridLayout_8">
@@ -802,13 +797,8 @@
                            <rect>
                             <x>0</x>
                             <y>0</y>
-<<<<<<< HEAD
-                            <width>256</width>
-                            <height>74</height>
-=======
                             <width>300</width>
                             <height>70</height>
->>>>>>> upstream/master
                            </rect>
                           </property>
                           <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -919,13 +909,8 @@
                      <rect>
                       <x>8</x>
                       <y>0</y>
-<<<<<<< HEAD
-                      <width>222</width>
-                      <height>353</height>
-=======
                       <width>304</width>
                       <height>372</height>
->>>>>>> upstream/master
                      </rect>
                     </property>
                     <property name="sizePolicy">
@@ -1241,13 +1226,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-<<<<<<< HEAD
-               <width>371</width>
-               <height>643</height>
-=======
                <width>385</width>
                <height>655</height>
->>>>>>> upstream/master
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_7">
@@ -1425,11 +1405,7 @@
                         <x>0</x>
                         <y>0</y>
                         <width>428</width>
-<<<<<<< HEAD
-                        <height>578</height>
-=======
                         <height>586</height>
->>>>>>> upstream/master
                        </rect>
                       </property>
                       <property name="sizePolicy">
@@ -2048,13 +2024,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-<<<<<<< HEAD
-                    <width>818</width>
-                    <height>539</height>
-=======
                     <width>829</width>
                     <height>552</height>
->>>>>>> upstream/master
                    </rect>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_14">
@@ -3025,11 +2996,7 @@
      <x>0</x>
      <y>0</y>
      <width>1117</width>
-<<<<<<< HEAD
-     <height>22</height>
-=======
      <height>20</height>
->>>>>>> upstream/master
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
