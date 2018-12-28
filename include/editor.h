@@ -19,6 +19,8 @@
 #include "currentselectedmetatilespixmapitem.h"
 #include "collisionpixmapitem.h"
 #include "mappixmapitem.h"
+#include "regionmappixmapitem.h"
+#include "regionmapeditor.h"
 #include "settings.h"
 
 class DraggablePixmapItem;
@@ -74,6 +76,33 @@ public:
     void toggleBorderVisibility(bool visible);
     Tileset *getCurrentMapPrimaryTileset();
 
+//
+    RegionMap *region_map;
+    void loadRegionMapData();
+
+    QGraphicsScene *scene_region_map_image = nullptr;
+    QGraphicsScene *scene_region_map_layout = nullptr;//?
+    QGraphicsScene *scene_region_map_tiles = nullptr;
+    TilemapTileSelector *mapsquare_selector_item = nullptr;
+    RegionMapPixmapItem *region_map_item = nullptr;
+
+    void displayRegionMap();
+    void displayRegionMapTileSelector();
+
+    // selectedTileChanged, hoveredTileChanged, hoveredTileCleared
+    void onRegionMapTileSelectorSelectedTileChanged();
+    void onRegionMapTileSelectorHoveredTileChanged(unsigned);
+    void onRegionMapTileSelectorHoveredTileCleared();
+
+private slots:
+    void onHoveredRegionMapTileChanged(int, int);
+    void onHoveredRegionMapTileCleared();
+    void mouseEvent_region_map(QGraphicsSceneMouseEvent *, RegionMapPixmapItem *);
+
+public:
+    QString regionMapTabStatusbarMessage;// TODO: make this name not terrible
+//
+
     DraggablePixmapItem *addMapEvent(Event *event);
     void selectMapEvent(DraggablePixmapItem *object);
     void selectMapEvent(DraggablePixmapItem *object, bool toggle);
@@ -100,6 +129,7 @@ public:
     QGraphicsScene *scene_selected_border_metatiles = nullptr;
     QGraphicsScene *scene_collision_metatiles = nullptr;
     QGraphicsScene *scene_elevation_metatiles = nullptr;
+    
     MetatileSelector *metatile_selector_item = nullptr;
 
     BorderMetatilesPixmapItem *selected_border_metatiles_item = nullptr;

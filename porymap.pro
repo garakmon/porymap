@@ -25,6 +25,7 @@ SOURCES += src/core/block.cpp \
     src/core/parseutil.cpp \
     src/core/tile.cpp \
     src/core/tileset.cpp \
+    src/core/regionmapeditor.cpp \
     src/ui/bordermetatilespixmapitem.cpp \
     src/ui/collisionpixmapitem.cpp \
     src/ui/connectionpixmapitem.cpp \
@@ -34,6 +35,7 @@ SOURCES += src/core/block.cpp \
     src/ui/graphicsview.cpp \
     src/ui/imageproviders.cpp \
     src/ui/mappixmapitem.cpp \
+    src/ui/regionmappixmapitem.cpp \
     src/ui/mapsceneeventfilter.cpp \
     src/ui/metatilelayersitem.cpp \
     src/ui/metatileselector.cpp \
@@ -46,6 +48,7 @@ SOURCES += src/core/block.cpp \
     src/ui/tileseteditor.cpp \
     src/ui/tileseteditormetatileselector.cpp \
     src/ui/tileseteditortileselector.cpp \
+    src/ui/tilemaptileselector.cpp \
     src/config.cpp \
     src/editor.cpp \
     src/main.cpp \
@@ -67,6 +70,7 @@ HEADERS  += include/core/block.h \
     include/core/parseutil.h \
     include/core/tile.h \
     include/core/tileset.h \
+    include/core/regionmapeditor.h \
     include/ui/bordermetatilespixmapitem.h \
     include/ui/collisionpixmapitem.h \
     include/ui/connectionpixmapitem.h \
@@ -76,6 +80,7 @@ HEADERS  += include/core/block.h \
     include/ui/graphicsview.h \
     include/ui/imageproviders.h \
     include/ui/mappixmapitem.h \
+    include/ui/regionmappixmapitem.h \
     include/ui/mapsceneeventfilter.h \
     include/ui/metatilelayersitem.h \
     include/ui/metatileselector.h \
@@ -88,6 +93,7 @@ HEADERS  += include/core/block.h \
     include/ui/tileseteditor.h \
     include/ui/tileseteditormetatileselector.h \
     include/ui/tileseteditortileselector.h \
+    include/ui/tilemaptileselector.h \
     include/config.h \
     include/editor.h \
     include/mainwindow.h \
