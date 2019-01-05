@@ -1754,3 +1754,16 @@ void MainWindow::on_actionTileset_Editor_triggered()
         this->tilesetEditor->activateWindow();
     }
 }
+
+void MainWindow::on_pushButton_RM_Options_save_clicked() {
+    //
+    this->editor->region_map->saveOptions(
+        //
+        this->editor->region_map_layout_item->selectedTile,
+        this->ui->comboBox_RM_ConnectedMap->currentText(),
+        this->ui->lineEdit_RM_MapName->text(),
+        this->ui->spinBox_RM_Options_x->value(),
+        this->ui->spinBox_RM_Options_y->value()
+    );
+    this->editor->region_map_layout_item->draw();
+}

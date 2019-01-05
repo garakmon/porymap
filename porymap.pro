@@ -30,6 +30,7 @@ SOURCES += src/core/block.cpp \
     src/ui/collisionpixmapitem.cpp \
     src/ui/connectionpixmapitem.cpp \
     src/ui/currentselectedmetatilespixmapitem.cpp \
+    src/ui/regionmaplayoutpixmapitem.cpp \
     src/ui/eventpropertiesframe.cpp \
     src/ui/filterchildrenproxymodel.cpp \
     src/ui/graphicsview.cpp \
@@ -75,6 +76,7 @@ HEADERS  += include/core/block.h \
     include/ui/collisionpixmapitem.h \
     include/ui/connectionpixmapitem.h \
     include/ui/currentselectedmetatilespixmapitem.h \
+    include/ui/regionmaplayoutpixmapitem.h \
     include/ui/eventpropertiesframe.h \
     include/ui/filterchildrenproxymodel.h \
     include/ui/graphicsview.h \
