@@ -37,6 +37,7 @@ SOURCES += src/core/block.cpp \
     src/ui/imageproviders.cpp \
     src/ui/mappixmapitem.cpp \
     src/ui/regionmappixmapitem.cpp \
+    src/ui/citymappixmapitem.cpp \
     src/ui/mapsceneeventfilter.cpp \
     src/ui/metatilelayersitem.cpp \
     src/ui/metatileselector.cpp \
@@ -83,6 +84,7 @@ HEADERS  += include/core/block.h \
     include/ui/imageproviders.h \
     include/ui/mappixmapitem.h \
     include/ui/regionmappixmapitem.h \
+    include/ui/citymappixmapitem.h \
     include/ui/mapsceneeventfilter.h \
     include/ui/metatilelayersitem.h \
     include/ui/metatileselector.h \
