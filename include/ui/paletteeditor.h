@@ -26,6 +26,7 @@ public:
     explicit PaletteEditor(Project*, Tileset*, Tileset*, QWidget *parent = nullptr);
     ~PaletteEditor();
     void setPaletteId(int);
+    void setTilesets(Tileset*, Tileset*);
 
 private:
     Ui::PaletteEditor *ui;
@@ -43,7 +44,7 @@ private:
     void refreshColors();
     void refreshColor(int);
     void setColor(int);
-    void commitEditHistory();
+    void commitEditHistory(int paletteid);
     void setColorsFromHistory(PaletteHistoryItem*, int);
 
 signals:
@@ -54,6 +55,7 @@ private slots:
     void on_spinBox_PaletteId_valueChanged(int arg1);
     void on_actionUndo_triggered();
     void on_actionRedo_triggered();
+    void on_actionImport_Palette_triggered();
 };
 
 #endif // PALETTEEDITOR_H

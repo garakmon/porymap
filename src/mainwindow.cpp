@@ -191,14 +191,23 @@ void MainWindow::mapSortOrder_changed(QAction *action)
 void MainWindow::on_lineEdit_filterBox_textChanged(const QString &arg1)
 {
     mapListProxyModel->setFilterRegExp(QRegExp(arg1, Qt::CaseInsensitive, QRegExp::FixedString));
-    ui->mapList->expandToDepth(0);
+    if (arg1.isEmpty()) {
+        ui->mapList->collapseAll();
+    } else {
+        ui->mapList->expandToDepth(0);
+    }
     ui->mapList->setExpanded(mapListProxyModel->mapFromSource(mapListIndexes.value(editor->map->name)), true);
+    ui->mapList->scrollTo(mapListProxyModel->mapFromSource(mapListIndexes.value(editor->map->name)), QAbstractItemView::PositionAtCenter);
 }
 
 void MainWindow::loadUserSettings() {
     ui->actionBetter_Cursors->setChecked(porymapConfig.getPrettyCursors());
     this->editor->settings->betterCursors = porymapConfig.getPrettyCursors();
     mapSortOrder = porymapConfig.getMapSortOrder();
+    ui->horizontalSlider_CollisionTransparency->blockSignals(true);
+    this->editor->collisionOpacity = static_cast<qreal>(porymapConfig.getCollisionOpacity()) / 100;
+    ui->horizontalSlider_CollisionTransparency->setValue(porymapConfig.getCollisionOpacity());
+    ui->horizontalSlider_CollisionTransparency->blockSignals(false);
 }
 
 bool MainWindow::openRecentProject() {
@@ -216,7 +225,9 @@ bool MainWindow::openProject(QString dir) {
         return false;
     }
 
-    this->statusBar()->showMessage(QString("Opening project %1").arg(dir));
+    QString nativeDir = QDir::toNativeSeparators(dir);
+
+    this->statusBar()->showMessage(QString("Opening project %1").arg(nativeDir));
 
     bool success = true;
     projectConfig.setProjectDir(dir);
@@ -242,9 +253,9 @@ bool MainWindow::openProject(QString dir) {
     }
 
     if (success) {
-        this->statusBar()->showMessage(QString("Opened project %1").arg(dir));
+        this->statusBar()->showMessage(QString("Opened project %1").arg(nativeDir));
     } else {
-        this->statusBar()->showMessage(QString("Failed to open project %1").arg(dir));
+        this->statusBar()->showMessage(QString("Failed to open project %1").arg(nativeDir));
     }
 
     return success;
@@ -478,13 +489,6 @@ void MainWindow::on_comboBox_Location_activated(const QString &location)
     }
 }
 
-void MainWindow::on_comboBox_Visibility_activated(const QString &requiresFlash)
-{
-    if (editor && editor->map) {
-        editor->map->requiresFlash = requiresFlash;
-    }
-}
-
 void MainWindow::on_comboBox_Weather_activated(const QString &weather)
 {
     if (editor && editor->map) {
@@ -691,7 +695,6 @@ void MainWindow::sortMapList() {
     }
 
     ui->mapList->setUpdatesEnabled(true);
-    ui->mapList->expandToDepth(0);
     ui->mapList->repaint();
 }
 
@@ -1485,6 +1488,12 @@ void MainWindow::selectedEventIndexChanged(int index)
         editor->selectMapEvent(selectedEvent);
 }
 
+void MainWindow::on_horizontalSlider_CollisionTransparency_valueChanged(int value) {
+    this->editor->collisionOpacity = static_cast<qreal>(value) / 100;
+    porymapConfig.setCollisionOpacity(value);
+    this->editor->collision_item->draw(true);
+}
+
 void MainWindow::on_toolButton_deleteObject_clicked()
 {
     if (editor && editor->selected_events) {
@@ -1775,4 +1784,10 @@ void MainWindow::on_pushButton_CityMap_save_clicked() {
 
 void MainWindow::on_comboBox_CityMap_picker_currentTextChanged(const QString &file) {
     this->editor->displayCityMap(file);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    porymapConfig.save();
+
+    QMainWindow::closeEvent(event);
 }

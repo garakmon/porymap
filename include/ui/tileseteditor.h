@@ -48,7 +48,6 @@ private slots:
     void onSelectedTilesChanged();
     void onMetatileLayerTileChanged(int, int);
     void onMetatileLayerSelectionChanged(QPoint, int, int);
-    void onPaletteEditorClosed();
     void onPaletteEditorChangedPaletteColor();
     void onPaletteEditorChangedPalette(int);
 
@@ -75,6 +74,10 @@ private slots:
     void on_comboBox_metatileBehaviors_activated(const QString &arg1);
 
     void on_comboBox_layerType_activated(int arg1);
+
+    void on_actionExport_Primary_Tiles_Image_triggered();
+
+    void on_actionExport_Secondary_Tiles_Image_triggered();
 
 private:
     void closeEvent(QCloseEvent*);
