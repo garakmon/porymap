@@ -15,6 +15,7 @@
 #include "map.h"
 #include "editor.h"
 #include "tileseteditor.h"
+#include "regionmapeditor.h"
 #include "filterchildrenproxymodel.h"
 
 namespace Ui {
@@ -61,10 +62,7 @@ private slots:
     void on_checkBox_AllowBiking_clicked(bool checked);
     void on_checkBox_AllowEscapeRope_clicked(bool checked);
 
-    void on_tabWidget_Region_Map_currentChanged(int);
-
     void on_tabWidget_currentChanged(int index);
-    void on_pushButton_RM_Options_save_clicked();
 
     void on_actionUndo_triggered();
 
@@ -126,9 +124,6 @@ private slots:
 
     void on_pushButton_clicked();
 
-    void on_pushButton_CityMap_save_clicked();
-    void on_comboBox_CityMap_picker_currentTextChanged(const QString &);
-
     void on_checkBox_smartPaths_stateChanged(int selected);
 
     void on_checkBox_Visibility_clicked(bool checked);
@@ -151,9 +146,12 @@ private slots:
 
     void on_horizontalSlider_CollisionTransparency_valueChanged(int value);
 
+    void on_actionRegion_Map_Editor_triggered();
+
 private:
     Ui::MainWindow *ui;
     TilesetEditor *tilesetEditor = nullptr;
+    RegionMapEditor *regionMapEditor = nullptr;
     FilterChildrenProxyModel *mapListProxyModel;
     QStandardItemModel *mapListModel;
     QList<QStandardItem*> *mapGroupItemsList;

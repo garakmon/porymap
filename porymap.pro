@@ -26,7 +26,7 @@ SOURCES += src/core/block.cpp \
     src/core/parseutil.cpp \
     src/core/tile.cpp \
     src/core/tileset.cpp \
-    src/core/regionmapeditor.cpp \
+    src/core/regionmap.cpp \
     src/ui/bordermetatilespixmapitem.cpp \
     src/ui/collisionpixmapitem.cpp \
     src/ui/connectionpixmapitem.cpp \
@@ -52,6 +52,7 @@ SOURCES += src/core/block.cpp \
     src/ui/tileseteditormetatileselector.cpp \
     src/ui/tileseteditortileselector.cpp \
     src/ui/tilemaptileselector.cpp \
+    src/ui/regionmapeditor.cpp \
     src/config.cpp \
     src/editor.cpp \
     src/main.cpp \
@@ -74,7 +75,7 @@ HEADERS  += include/core/block.h \
     include/core/parseutil.h \
     include/core/tile.h \
     include/core/tileset.h \
-    include/core/regionmapeditor.h \
+    include/core/regionmap.h \
     include/ui/bordermetatilespixmapitem.h \
     include/ui/collisionpixmapitem.h \
     include/ui/connectionpixmapitem.h \
@@ -100,6 +101,7 @@ HEADERS  += include/core/block.h \
     include/ui/tileseteditormetatileselector.h \
     include/ui/tileseteditortileselector.h \
     include/ui/tilemaptileselector.h \
+    include/ui/regionmapeditor.h \
     include/config.h \
     include/editor.h \
     include/mainwindow.h \
@@ -110,7 +112,8 @@ HEADERS  += include/core/block.h \
 FORMS    += forms/mainwindow.ui \
     forms/eventpropertiesframe.ui \
     forms/tileseteditor.ui \
-    forms/paletteeditor.ui
+    forms/paletteeditor.ui \
+    forms/regionmapeditor.ui
 
 RESOURCES += \
     resources/images.qrc

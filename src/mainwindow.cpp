@@ -242,14 +242,11 @@ bool MainWindow::openProject(QString dir) {
         setWindowTitle(editor->project->getProjectTitle());
         loadDataStructures();
         populateMapList();
-        editor->loadRegionMapData();
-        editor->loadCityMaps();
         success = setMap(getDefaultMap(), true);
     } else {
         setWindowTitle(editor->project->getProjectTitle());
         loadDataStructures();
         populateMapList();
-        editor->loadRegionMapData();
     }
 
     if (success) {
@@ -563,11 +560,6 @@ void MainWindow::on_checkBox_AllowEscapeRope_clicked(bool checked)
             editor->map->allowEscapeRope = "0";
         }
     }
-}
-
-void MainWindow::on_tabWidget_Region_Map_currentChanged(int index) {
-    //
-    ui->stackedWidget_RM_Options->setCurrentIndex(index);
 }
 
 void MainWindow::loadDataStructures() {
@@ -1765,25 +1757,22 @@ void MainWindow::on_actionTileset_Editor_triggered()
     }
 }
 
-void MainWindow::on_pushButton_RM_Options_save_clicked() {
-    //
-    this->editor->region_map->saveOptions(
-        //
-        this->editor->region_map_layout_item->selectedTile,
-        this->ui->comboBox_RM_ConnectedMap->currentText(),
-        this->ui->lineEdit_RM_MapName->text(),
-        this->ui->spinBox_RM_Options_x->value(),
-        this->ui->spinBox_RM_Options_y->value()
-    );
-    this->editor->region_map_layout_item->draw();
-}
+void MainWindow::on_actionRegion_Map_Editor_triggered() {
+    if (!this->regionMapEditor) {
+        this->regionMapEditor = new RegionMapEditor(this, this->editor->project);
+        this->regionMapEditor->loadRegionMapData();
+        this->regionMapEditor->loadCityMaps();
+        connect(this->regionMapEditor, &QObject::destroyed, [=](QObject *) { this->regionMapEditor = nullptr; });
+        this->regionMapEditor->setAttribute(Qt::WA_DeleteOnClose);
+    }
 
-void MainWindow::on_pushButton_CityMap_save_clicked() {
-    this->editor->city_map_item->save();
-}
-
-void MainWindow::on_comboBox_CityMap_picker_currentTextChanged(const QString &file) {
-    this->editor->displayCityMap(file);
+    if (!this->regionMapEditor->isVisible()) {
+        this->regionMapEditor->show();
+    } else if (this->regionMapEditor->isMinimized()) {
+        this->regionMapEditor->showNormal();
+    } else {
+        this->regionMapEditor->activateWindow();
+    }
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
