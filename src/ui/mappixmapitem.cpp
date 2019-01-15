@@ -499,13 +499,13 @@ void MapPixmapItem::hoverMoveEvent(QGraphicsSceneHoverEvent *event) {
     int x = static_cast<int>(event->pos().x()) / 16;
     int y = static_cast<int>(event->pos().y()) / 16;
     emit this->hoveredMapMetatileChanged(x, y);
-    if (this->settings->betterCursors){
+    if (this->settings->betterCursors && this->paintingEnabled) {
         setCursor(this->settings->mapCursor);
     }
 }
 void MapPixmapItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *) {
     emit this->hoveredMapMetatileCleared();
-    if (this->settings->betterCursors){
+    if (this->settings->betterCursors && this->paintingEnabled) {
         unsetCursor();
     }
 }
@@ -515,6 +515,7 @@ void MapPixmapItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     int y = static_cast<int>(pos.y()) / 16;
     this->paint_tile_initial_x = x;
     this->paint_tile_initial_y = y;
+    emit startPaint(event, this);
     emit mouseEvent(event, this);
 }
 void MapPixmapItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
@@ -524,5 +525,6 @@ void MapPixmapItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
     emit mouseEvent(event, this);
 }
 void MapPixmapItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
+    emit endPaint(event, this);
     emit mouseEvent(event, this);
 }

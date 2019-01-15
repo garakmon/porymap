@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QSplitter" name="splitter">
+     <widget class="QSplitter" name="splitter_main">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -65,6 +65,9 @@
             <property name="enabled">
              <bool>true</bool>
             </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sort map list&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="icon">
              <iconset resource="../resources/images.qrc">
               <normaloff>:/icons/sort_alphabet.ico</normaloff>:/icons/sort_alphabet.ico</iconset>
@@ -86,6 +89,82 @@
             </property>
             <property name="arrowType">
              <enum>Qt::NoArrow</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_ExpandAll">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Expand all map folders&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../resources/images.qrc">
+              <normaloff>:/icons/expand_all.ico</normaloff>:/icons/expand_all.ico</iconset>
+            </property>
+            <property name="popupMode">
+             <enum>QToolButton::InstantPopup</enum>
+            </property>
+            <property name="autoRaise">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="toolButton_CollapseAll">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>23</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>23</width>
+              <height>22</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Collapse all map list folders&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../resources/images.qrc">
+              <normaloff>:/icons/collapse_all.ico</normaloff>:/icons/collapse_all.ico</iconset>
+            </property>
+            <property name="popupMode">
+             <enum>QToolButton::InstantPopup</enum>
+            </property>
+            <property name="autoRaise">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -197,7 +276,7 @@
           <number>6</number>
          </property>
          <item row="0" column="0">
-          <widget class="QSplitter" name="splitter_2">
+          <widget class="QSplitter" name="splitter_map">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -1224,7 +1303,7 @@
           <number>0</number>
          </property>
          <item row="0" column="0">
-          <widget class="QSplitter" name="splitter_3">
+          <widget class="QSplitter" name="splitter_events">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -2509,6 +2588,8 @@
     </property>
     <addaction name="actionZoom_In"/>
     <addaction name="actionZoom_Out"/>
+    <addaction name="actionCursor_Tile_Outline"/>
+    <addaction name="actionPlayer_View_Rectangle"/>
     <addaction name="actionBetter_Cursors"/>
    </widget>
    <widget class="QMenu" name="menuTools">
@@ -2522,13 +2603,21 @@
     <addaction name="actionMove"/>
     <addaction name="actionMap_Shift"/>
     <addaction name="separator"/>
+    <addaction name="action_NewMap"/>
     <addaction name="actionTileset_Editor"/>
     <addaction name="actionRegion_Map_Editor"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout_Porymap"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
    <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="action_Save_Project">
@@ -2561,6 +2650,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="action_NewMap">
+   <property name="text">
+    <string>New Map</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
   <action name="actionUndo">
@@ -2712,6 +2809,33 @@
   <action name="actionRegion_Map_Editor">
    <property name="text">
     <string>Region Map Editor</string>
+   </property>
+  </action>
+  <action name="actionAbout_Porymap">
+   <property name="text">
+    <string>About Porymap...</string>
+   </property>
+  </action>
+  <action name="actionPlayer_View_Rectangle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Player View Rectangle</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Show the player's view rectangle on the map based on the cursor's position.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionCursor_Tile_Outline">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cursor Tile Outline</string>
    </property>
   </action>
  </widget>

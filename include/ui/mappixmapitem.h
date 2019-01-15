@@ -13,8 +13,10 @@ public:
         this->map = map_;
         this->metatileSelector = metatileSelector;
         this->settings = settings;
+        this->paintingEnabled = true;
         setAcceptHoverEvents(true);
     }
+    bool paintingEnabled;
     Map *map;
     MetatileSelector *metatileSelector;
     Settings *settings;
@@ -41,6 +43,8 @@ private:
     static QList<int> smartPathTable;
 
 signals:
+    void startPaint(QGraphicsSceneMouseEvent *, MapPixmapItem *);
+    void endPaint(QGraphicsSceneMouseEvent *, MapPixmapItem *);
     void mouseEvent(QGraphicsSceneMouseEvent *, MapPixmapItem *);
     void hoveredMapMetatileChanged(int x, int y);
     void hoveredMapMetatileCleared();

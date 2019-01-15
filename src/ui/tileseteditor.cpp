@@ -2,10 +2,14 @@
 #include "ui_tileseteditor.h"
 #include "log.h"
 #include "imageproviders.h"
+#include "metatileparser.h"
+#include "paletteparser.h"
+#include "imageexport.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDialogButtonBox>
 #include <QCloseEvent>
+#include <QImageReader>
 
 TilesetEditor::TilesetEditor(Project *project, QString primaryTilesetLabel, QString secondaryTilesetLabel, QWidget *parent) :
     QMainWindow(parent),
@@ -78,10 +82,10 @@ void TilesetEditor::setTilesets(QString primaryTilesetLabel, QString secondaryTi
 }
 
 void TilesetEditor::refresh() {
+    this->metatileLayersItem->setTilesets(this->primaryTileset, this->secondaryTileset);
+    this->tileSelector->setTilesets(this->primaryTileset, this->secondaryTileset);
     this->metatileSelector->setTilesets(this->primaryTileset, this->secondaryTileset);
     this->metatileSelector->select(this->metatileSelector->getSelectedMetatile());
-    this->tileSelector->setTilesets(this->primaryTileset, this->secondaryTileset);
-    this->metatileLayersItem->setTilesets(this->primaryTileset, this->secondaryTileset);
     this->drawSelectedTiles();
 
     this->ui->graphicsView_Tiles->setSceneRect(0, 0, this->tileSelector->pixmap().width() + 2, this->tileSelector->pixmap().height() + 2);
@@ -313,7 +317,9 @@ void TilesetEditor::on_actionSave_Tileset_triggered()
 {
     this->project->saveTilesets(this->primaryTileset, this->secondaryTileset);
     emit this->tilesetsSaved(this->primaryTileset->name, this->secondaryTileset->name);
-    this->paletteEditor->setTilesets(this->primaryTileset, this->secondaryTileset);
+    if (this->paletteEditor) {
+        this->paletteEditor->setTilesets(this->primaryTileset, this->secondaryTileset);
+    }
     this->ui->statusbar->showMessage(QString("Saved primary and secondary Tilesets!"), 5000);
     this->hasUnsavedChanges = false;
 }
@@ -336,33 +342,29 @@ void TilesetEditor::importTilesetTiles(Tileset *tileset, bool primary) {
                 this,
                 QString("Import %1 Tileset Tiles Image").arg(descriptorCaps),
                 this->project->root,
-                "Image Files (*.png)");
+                "Image Files (*.png *.bmp *.jpg *.dib)");
     if (filepath.isEmpty()) {
         return;
     }
 
     logInfo(QString("Importing %1 tileset tiles '%2'").arg(descriptor).arg(filepath));
 
-    // Validate image dimensions.
-    QImage image = QImage(filepath);
+    // Read image data from buffer so that the built-in QImage doesn't try to detect file format
+    // purely from the extension name. Advance Map exports ".png" files that are actually BMP format, for example.
+    QFile file(filepath);
+    QImage image;
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray imageData = file.readAll();
+        image = QImage::fromData(imageData);
+    } else {
+        logError(QString("Failed to open image file: '%1'").arg(filepath));
+    }
     if (image.width() == 0 || image.height() == 0 || image.width() % 8 != 0 || image.height() % 8 != 0) {
         QMessageBox msgBox(this);
         msgBox.setText("Failed to import tiles.");
         msgBox.setInformativeText(QString("The image dimensions (%1 x %2) are invalid. Width and height must be multiples of 8 pixels.")
                                   .arg(image.width())
                                   .arg(image.height()));
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.setIcon(QMessageBox::Icon::Critical);
-        msgBox.exec();
-        return;
-    }
-
-    // Validate image is properly indexed to 16 colors.
-    if (image.colorCount() != 16) {
-        QMessageBox msgBox(this);
-        msgBox.setText("Failed to import tiles.");
-        msgBox.setInformativeText(QString("The image must be indexed and contain 16 total colors. The provided image has %1 indexed colors.")
-                                  .arg(image.colorCount()));
         msgBox.setDefaultButton(QMessageBox::Ok);
         msgBox.setIcon(QMessageBox::Icon::Critical);
         msgBox.exec();
@@ -381,6 +383,64 @@ void TilesetEditor::importTilesetTiles(Tileset *tileset, bool primary) {
                                   .arg(descriptor)
                                   .arg(maxAllowedTiles)
                                   .arg(totalTiles));
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.setIcon(QMessageBox::Icon::Critical);
+        msgBox.exec();
+        return;
+    }
+
+    // Ask user to provide a palette for the un-indexed image.
+    if (image.colorCount() == 0) {
+        QMessageBox msgBox(this);
+        msgBox.setText("Select Palette for Tiles");
+        msgBox.setInformativeText(QString("The provided image is not indexed. Please select a palette file to for the image. An indexed image will be generated using the provided image and palette.")
+                                  .arg(image.colorCount()));
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.setIcon(QMessageBox::Icon::Warning);
+        msgBox.exec();
+
+        QString filepath = QFileDialog::getOpenFileName(
+            this,
+            QString("Select Palette for Tiles Image").arg(descriptorCaps),
+            this->project->root,
+            "Palette Files (*.pal *.act *tpl *gpl)");
+        if (filepath.isEmpty()) {
+            return;
+        }
+
+        PaletteParser parser;
+        bool error = false;
+        QList<QRgb> palette = parser.parse(filepath, &error);
+        if (error) {
+            QMessageBox msgBox(this);
+            msgBox.setText("Failed to import palette.");
+            QString message = QString("The palette file could not be processed. View porymap.log for specific errors.");
+            msgBox.setInformativeText(message);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.setIcon(QMessageBox::Icon::Critical);
+            msgBox.exec();
+            return;
+        } else if (palette.length() != 16) {
+            QMessageBox msgBox(this);
+            msgBox.setText("Failed to import palette.");
+            QString message = QString("The palette must have exactly 16 colors, but it has %1.").arg(palette.length());
+            msgBox.setInformativeText(message);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            msgBox.setIcon(QMessageBox::Icon::Critical);
+            msgBox.exec();
+            return;
+        }
+
+        QVector<QRgb> colorTable = palette.toVector();
+        image = image.convertToFormat(QImage::Format::Format_Indexed8, colorTable);
+    }
+
+    // Validate image is properly indexed to 16 colors.
+    if (image.colorCount() != 16) {
+        QMessageBox msgBox(this);
+        msgBox.setText("Failed to import tiles.");
+        msgBox.setInformativeText(QString("The image must be indexed and contain 16 total colors, or it must be un-indexed. The provided image has %1 indexed colors.")
+                                  .arg(image.colorCount()));
         msgBox.setDefaultButton(QMessageBox::Ok);
         msgBox.setIcon(QMessageBox::Icon::Critical);
         msgBox.exec();
@@ -554,7 +614,7 @@ void TilesetEditor::on_actionExport_Primary_Tiles_Image_triggered()
     QString filepath = QFileDialog::getSaveFileName(this, "Export Primary Tiles Image", defaultFilepath, "Image Files (*.png)");
     if (!filepath.isEmpty()) {
         QImage image = this->tileSelector->buildPrimaryTilesIndexedImage();
-        image.save(filepath);
+        exportIndexed4BPPPng(image, filepath);
     }
 }
 
@@ -565,6 +625,62 @@ void TilesetEditor::on_actionExport_Secondary_Tiles_Image_triggered()
     QString filepath = QFileDialog::getSaveFileName(this, "Export Secondary Tiles Image", defaultFilepath, "Image Files (*.png)");
     if (!filepath.isEmpty()) {
         QImage image = this->tileSelector->buildSecondaryTilesIndexedImage();
-        image.save(filepath);
+        exportIndexed4BPPPng(image, filepath);
     }
+}
+
+void TilesetEditor::on_actionImport_Primary_Metatiles_triggered()
+{
+    this->importTilesetMetatiles(this->primaryTileset, true);
+}
+
+void TilesetEditor::on_actionImport_Secondary_Metatiles_triggered()
+{
+    this->importTilesetMetatiles(this->secondaryTileset, false);
+}
+
+void TilesetEditor::importTilesetMetatiles(Tileset *tileset, bool primary)
+{
+    QString descriptor = primary ? "primary" : "secondary";
+    QString descriptorCaps = primary ? "Primary" : "Secondary";
+
+    QString filepath = QFileDialog::getOpenFileName(
+                this,
+                QString("Import %1 Tileset Metatiles from Advance Map 1.92").arg(descriptorCaps),
+                this->project->root,
+                "Advance Map 1.92 Metatile Files (*.bvd)");
+    if (filepath.isEmpty()) {
+        return;
+    }
+
+    MetatileParser parser;
+    bool error = false;
+    QList<Metatile*> *metatiles = parser.parse(filepath, &error, primary);
+    if (error) {
+        QMessageBox msgBox(this);
+        msgBox.setText("Failed to import metatiles from Advance Map 1.92 .bvd file.");
+        QString message = QString("The .bvd file could not be processed. View porymap.log for specific errors.");
+        msgBox.setInformativeText(message);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.setIcon(QMessageBox::Icon::Critical);
+        msgBox.exec();
+        return;
+    }
+\
+    // TODO: This is crude because it makes a history entry for every newly-imported metatile.
+    //       Revisit this when tiles and num metatiles are added to tileset editory history.
+    int metatileIdBase = primary ? 0 : Project::getNumMetatilesPrimary();
+    for (int i = 0; i < metatiles->length(); i++) {
+        if (i >= tileset->metatiles->length()) {
+            break;
+        }
+
+        Metatile *prevMetatile = tileset->metatiles->at(i)->copy();
+        MetatileHistoryItem *commit = new MetatileHistoryItem(static_cast<uint16_t>(metatileIdBase + i), prevMetatile, metatiles->at(i)->copy());
+        metatileHistory.push(commit);
+    }
+
+    tileset->metatiles = metatiles;
+    this->refresh();
+    this->hasUnsavedChanges = true;
 }

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "aboutporymap.h"
 #include "project.h"
 #include "log.h"
 #include "editor.h"
@@ -63,6 +64,7 @@ void MainWindow::initWindow() {
     this->initEditor();
     this->initMiscHeapObjects();
     this->initMapSortOrder();
+    this->restoreWindowState();
 }
 
 void MainWindow::initExtraShortcuts() {
@@ -203,11 +205,25 @@ void MainWindow::on_lineEdit_filterBox_textChanged(const QString &arg1)
 void MainWindow::loadUserSettings() {
     ui->actionBetter_Cursors->setChecked(porymapConfig.getPrettyCursors());
     this->editor->settings->betterCursors = porymapConfig.getPrettyCursors();
+    ui->actionPlayer_View_Rectangle->setChecked(porymapConfig.getShowPlayerView());
+    this->editor->settings->playerViewRectEnabled = porymapConfig.getShowPlayerView();
+    ui->actionCursor_Tile_Outline->setChecked(porymapConfig.getShowCursorTile());
+    this->editor->settings->cursorTileRectEnabled = porymapConfig.getShowCursorTile();
     mapSortOrder = porymapConfig.getMapSortOrder();
     ui->horizontalSlider_CollisionTransparency->blockSignals(true);
     this->editor->collisionOpacity = static_cast<qreal>(porymapConfig.getCollisionOpacity()) / 100;
     ui->horizontalSlider_CollisionTransparency->setValue(porymapConfig.getCollisionOpacity());
     ui->horizontalSlider_CollisionTransparency->blockSignals(false);
+}
+
+void MainWindow::restoreWindowState() {
+    logInfo("Restoring window geometry from previous session.");
+    QMap<QString, QByteArray> geometry = porymapConfig.getGeometry();
+    this->restoreGeometry(geometry.value("window_geometry"));
+    this->restoreState(geometry.value("window_state"));
+    this->ui->splitter_map->restoreState(geometry.value("map_splitter_state"));
+    this->ui->splitter_events->restoreState(geometry.value("events_splitter_state"));
+    this->ui->splitter_main->restoreState(geometry.value("main_splitter_state"));
 }
 
 bool MainWindow::openRecentProject() {
@@ -722,25 +738,102 @@ void MainWindow::onOpenMapListContextMenu(const QPoint &point)
         actions->addAction(menu->addAction("Add New Map to Group"))->setData(groupNum);
         connect(actions, SIGNAL(triggered(QAction*)), this, SLOT(onAddNewMapToGroupClick(QAction*)));
         menu->exec(QCursor::pos());
+    } else if (itemType == "map_sec") {
+        QString secName = selectedItem->data(Qt::UserRole).toString();
+        QMenu* menu = new QMenu(this);
+        QActionGroup* actions = new QActionGroup(menu);
+        actions->addAction(menu->addAction("Add New Map to Area"))->setData(secName);
+        connect(actions, SIGNAL(triggered(QAction*)), this, SLOT(onAddNewMapToAreaClick(QAction*)));
+        menu->exec(QCursor::pos());
+    } else if (itemType == "map_layout") {
+        QString layoutName = selectedItem->data(Qt::UserRole).toString();
+        QMenu* menu = new QMenu(this);
+        QActionGroup* actions = new QActionGroup(menu);
+        actions->addAction(menu->addAction("Add New Map with Layout"))->setData(layoutName);
+        connect(actions, SIGNAL(triggered(QAction*)), this, SLOT(onAddNewMapToLayoutClick(QAction*)));
+        menu->exec(QCursor::pos());
     }
 }
 
 void MainWindow::onAddNewMapToGroupClick(QAction* triggeredAction)
 {
     int groupNum = triggeredAction->data().toInt();
-    QStandardItem* groupItem = mapGroupItemsList->at(groupNum);
+    openNewMapPopupWindow(MapSortOrder::Group, groupNum);
+}
 
-    QString newMapName = editor->project->getNewMapName();
-    Map* newMap = editor->project->addNewMapToGroup(newMapName, groupNum);
+void MainWindow::onAddNewMapToAreaClick(QAction* triggeredAction)
+{
+    QString secName = triggeredAction->data().toString();
+    openNewMapPopupWindow(MapSortOrder::Area, secName);
+}
+
+void MainWindow::onAddNewMapToLayoutClick(QAction* triggeredAction)
+{
+    QString layoutName = triggeredAction->data().toString();
+    openNewMapPopupWindow(MapSortOrder::Layout, layoutName);
+}
+
+void MainWindow::onNewMapCreated() {
+    QString newMapName = this->newmapprompt->map->name;
+    int newMapGroup = this->newmapprompt->group;
+    Map *newMap_ = this->newmapprompt->map;
+    bool updateLayout = this->newmapprompt->changeLayout;
+
+    Map *newMap = editor->project->addNewMapToGroup(newMapName, newMapGroup, newMap_, updateLayout);
+
+    logInfo(QString("Created a new map named %1.").arg(newMapName));
+
     editor->project->saveMap(newMap);
     editor->project->saveAllDataStructures();
 
+    QStandardItem* groupItem = mapGroupItemsList->at(newMapGroup);
     int numMapsInGroup = groupItem->rowCount();
-    QStandardItem *newMapItem = createMapItem(newMapName, groupNum, numMapsInGroup);
+
+    QStandardItem *newMapItem = createMapItem(newMapName, newMapGroup, numMapsInGroup);
     groupItem->appendRow(newMapItem);
     mapListIndexes.insert(newMapName, newMapItem->index());
 
-    setMap(newMapName);
+    sortMapList();
+    setMap(newMapName, true);
+
+    if (newMap->isFlyable == "TRUE") {
+        addNewEvent("event_heal_location");
+        editor->project->saveHealLocationStruct(newMap);
+        editor->save();// required
+    }
+
+    disconnect(this->newmapprompt, SIGNAL(applied()), this, SLOT(onNewMapCreated()));
+}
+
+void MainWindow::openNewMapPopupWindow(int type, QVariant data) {
+    if (!this->newmapprompt) {
+        this->newmapprompt = new NewMapPopup(this, this->editor->project);
+    }
+    if (!this->newmapprompt->isVisible()) {
+        this->newmapprompt->show();
+    } else {
+        this->newmapprompt->raise();
+        this->newmapprompt->activateWindow();
+    }
+    switch (type)
+    {
+        case MapSortOrder::Group:
+            this->newmapprompt->init(type, data.toInt(), QString(), QString());
+            break;
+        case MapSortOrder::Area:
+            this->newmapprompt->init(type, 0, data.toString(), QString());
+            break;
+        case MapSortOrder::Layout:
+            this->newmapprompt->init(type, 0, QString(), data.toString());
+            break;
+    }
+    connect(this->newmapprompt, SIGNAL(applied()), this, SLOT(onNewMapCreated()));
+    connect(this->newmapprompt, &QObject::destroyed, [=](QObject *) { this->newmapprompt = nullptr; });
+            this->newmapprompt->setAttribute(Qt::WA_DeleteOnClose);
+}
+
+void MainWindow::on_action_NewMap_triggered() {
+    openNewMapPopupWindow(MapSortOrder::Group, 0);
 }
 
 void MainWindow::onTilesetChanged(QString mapName)
@@ -879,6 +972,20 @@ void MainWindow::on_actionZoom_Out_triggered() {
 void MainWindow::on_actionBetter_Cursors_triggered() {
     porymapConfig.setPrettyCursors(ui->actionBetter_Cursors->isChecked());
     this->editor->settings->betterCursors = ui->actionBetter_Cursors->isChecked();
+}
+
+void MainWindow::on_actionPlayer_View_Rectangle_triggered()
+{
+    bool enabled = ui->actionPlayer_View_Rectangle->isChecked();
+    porymapConfig.setShowPlayerView(enabled);
+    this->editor->settings->playerViewRectEnabled = enabled;
+}
+
+void MainWindow::on_actionCursor_Tile_Outline_triggered()
+{
+    bool enabled = ui->actionCursor_Tile_Outline->isChecked();
+    porymapConfig.setShowCursorTile(enabled);
+    this->editor->settings->cursorTileRectEnabled = enabled;
 }
 
 void MainWindow::on_actionPencil_triggered()
@@ -1516,6 +1623,7 @@ void MainWindow::on_toolButton_Paint_clicked()
 {
     editor->map_edit_mode = "paint";
     editor->settings->mapCursor = QCursor(QPixmap(":/icons/pencil_cursor.ico"), 10, 10);
+    editor->cursorMapTileRect->stopSingleTileMode();
 
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -1528,6 +1636,7 @@ void MainWindow::on_toolButton_Select_clicked()
 {
     editor->map_edit_mode = "select";
     editor->settings->mapCursor = QCursor(QPixmap(":/icons/cursor.ico"), 0, 0);
+    editor->cursorMapTileRect->setSingleTileMode();
 
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -1540,6 +1649,7 @@ void MainWindow::on_toolButton_Fill_clicked()
 {
     editor->map_edit_mode = "fill";
     editor->settings->mapCursor = QCursor(QPixmap(":/icons/fill_color_cursor.ico"), 10, 10);
+    editor->cursorMapTileRect->setSingleTileMode();
 
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -1552,6 +1662,7 @@ void MainWindow::on_toolButton_Dropper_clicked()
 {
     editor->map_edit_mode = "pick";
     editor->settings->mapCursor = QCursor(QPixmap(":/icons/pipette_cursor.ico"), 10, 10);
+    editor->cursorMapTileRect->setSingleTileMode();
 
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -1564,6 +1675,7 @@ void MainWindow::on_toolButton_Move_clicked()
 {
     editor->map_edit_mode = "move";
     editor->settings->mapCursor = QCursor(QPixmap(":/icons/move.ico"), 7, 7);
+    editor->cursorMapTileRect->setSingleTileMode();
 
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -1576,6 +1688,7 @@ void MainWindow::on_toolButton_Shift_clicked()
 {
     editor->map_edit_mode = "shift";
     editor->settings->mapCursor = QCursor(QPixmap(":/icons/shift_cursor.ico"), 10, 10);
+    editor->cursorMapTileRect->setSingleTileMode();
 
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     ui->scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -1730,7 +1843,13 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_checkBox_smartPaths_stateChanged(int selected)
 {
-    editor->settings->smartPathsEnabled = selected == Qt::Checked;
+    bool enabled = selected == Qt::Checked;
+    editor->settings->smartPathsEnabled = enabled;
+    if (enabled) {
+        editor->cursorMapTileRect->setSmartPathMode();
+    } else {
+        editor->cursorMapTileRect->setNormalPathMode();
+    }
 }
 
 void MainWindow::on_checkBox_ToggleBorder_stateChanged(int selected)
@@ -1775,7 +1894,35 @@ void MainWindow::on_actionRegion_Map_Editor_triggered() {
     }
 }
 
+void MainWindow::on_toolButton_ExpandAll_clicked()
+{
+    if (ui->mapList) {
+        ui->mapList->expandToDepth(0);
+    }
+}
+
+void MainWindow::on_toolButton_CollapseAll_clicked()
+{
+    if (ui->mapList) {
+        ui->mapList->collapseAll();
+    }
+}
+
+void MainWindow::on_actionAbout_Porymap_triggered()
+{
+    AboutPorymap *window = new AboutPorymap(this);
+    window->setAttribute(Qt::WA_DeleteOnClose);
+    window->show();
+}
+
 void MainWindow::closeEvent(QCloseEvent *event) {
+    porymapConfig.setGeometry(
+        this->saveGeometry(),
+        this->saveState(),
+        this->ui->splitter_map->saveState(),
+        this->ui->splitter_events->saveState(),
+        this->ui->splitter_main->saveState()
+    );
     porymapConfig.save();
 
     QMainWindow::closeEvent(event);

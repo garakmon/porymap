@@ -775,6 +775,15 @@ void Project::loadBlockdata(Map* map) {
 
     QString path = QString("%1/%2").arg(root).arg(map->layout->blockdata_path);
     map->layout->blockdata = readBlockdata(path);
+
+    if (map->layout->blockdata->blocks->count() != map->getWidth() * map->getHeight()) {
+        logWarn(QString("Layout blockdata length %1 does not match dimensions %2x%3 (should be %4). Resizing blockdata.")
+                .arg(map->layout->blockdata->blocks->count())
+                .arg(map->getWidth())
+                .arg(map->getHeight())
+                .arg(map->getWidth() * map->getHeight()));
+        map->layout->blockdata->blocks->resize(map->getWidth() * map->getHeight());
+    }
 }
 
 void Project::setNewMapBlockdata(Map* map) {
@@ -841,9 +850,14 @@ void Project::saveMap(Map *map) {
             logError(QString("Error: failed to create directory for new map: '%1'").arg(newMapDataDir));
         }
 
-        QString newLayoutDir = QString(root + "/data/layouts/%1").arg(map->name);
-        if (!QDir::root().mkdir(newLayoutDir)) {
-            logError(QString("Error: failed to create directory for new layout: '%1'").arg(newLayoutDir));
+        if (map->needsLayoutDir) {
+            QString newLayoutDir = QString(root + "/data/layouts/%1").arg(map->name);
+            if (!QDir::root().mkdir(newLayoutDir)) {
+                logError(QString("Error: failed to create directory for new layout: '%1'").arg(newLayoutDir));
+            }
+            // Simply append to data/layouts.inc.
+            QString layout_text = QString("\t.include \"data/layouts/%1/layout.inc\"\n").arg(map->layout->name);
+            appendTextFile(root + "/data/layouts.inc", layout_text);
         }
 
         // TODO: In the future, these files needs more structure to allow for proper parsing/saving.
@@ -851,12 +865,16 @@ void Project::saveMap(Map *map) {
         QString text = QString("%1_MapScripts::\n\t.byte 0\n").arg(map->name);
         saveTextFile(root + "/data/maps/" + map->name + "/scripts.inc", text);
 
-        // Create file data/maps/<map_name>/text.inc
-        saveTextFile(root + "/data/maps/" + map->name + "/text.inc", "\n");
+        if (projectConfig.getBaseGameVersion() == BaseGameVersion::pokeruby) {
+            // Create file data/maps/<map_name>/text.inc
+            saveTextFile(root + "/data/maps/" + map->name + "/text.inc", "\n");
+        }
 
         // Simply append to data/event_scripts.s.
         text = QString("\n\t.include \"data/maps/%1/scripts.inc\"\n").arg(map->name);
-        text += QString("\t.include \"data/maps/%1/text.inc\"\n").arg(map->name);
+        if (projectConfig.getBaseGameVersion() == BaseGameVersion::pokeruby) {
+            text += QString("\t.include \"data/maps/%1/text.inc\"\n").arg(map->name);
+        }
         appendTextFile(root + "/data/event_scripts.s", text);
 
         // Simply append to data/map_events.s.
@@ -866,10 +884,6 @@ void Project::saveMap(Map *map) {
         // Simply append to data/maps/headers.inc.
         text = QString("\t.include \"data/maps/%1/header.inc\"\n").arg(map->name);
         appendTextFile(root + "/data/maps/headers.inc", text);
-
-        // Simply append to data/layouts.inc.
-        text = QString("\t.include \"data/layouts/%1/layout.inc\"\n").arg(map->layout->name);
-        appendTextFile(root + "/data/layouts.inc", text);
     }
 
     saveMapBorder(map);
@@ -1238,6 +1252,50 @@ Map* Project::addNewMapToGroup(QString mapName, int groupNum) {
     return map;
 }
 
+Map* Project::addNewMapToGroup(QString mapName, int groupNum, Map *newMap, bool updateLayout) {
+    mapNames->append(mapName);
+    map_groups->insert(mapName, groupNum);
+    groupedMapNames[groupNum].append(mapName);
+
+    Map *map = new Map;
+    map = newMap;
+
+    map->isPersistedToFile = false;
+    map->setName(mapName);
+
+    mapConstantsToMapNames->insert(map->constantName, map->name);
+    mapNamesToMapConstants->insert(map->name, map->constantName);
+
+    map->events_label = QString("%1_MapEvents").arg(map->name);;
+    map->scripts_label = QString("%1_MapScripts").arg(map->name);;
+    map->connections_label = "0x0";
+    map->song = "MUS_DAN02";
+    map->requiresFlash = "FALSE";
+    map->weather = "WEATHER_SUNNY";
+    map->unknown = "0";
+    map->show_location = "TRUE";
+    map->battle_scene = "MAP_BATTLE_SCENE_NORMAL";
+
+    if (!updateLayout) {
+        map->layout_id = QString("%1").arg(mapLayoutsTable.size() + 1);
+        mapLayouts.insert(map->layout->label, map->layout);
+        mapLayoutsTable.append(map->layout->label);
+        setNewMapBlockdata(map);
+        setNewMapBorder(map);
+    } else {
+        map->layout_id = QString("%1").arg(mapLayoutsTable.indexOf(map->layout->label) + 1);
+    }
+
+    loadMapTilesets(map);
+    setNewMapEvents(map);
+    setNewMapConnections(map);
+
+    map->commit();
+    map->metatileHistory.save();
+
+    return map;
+}
+
 QString Project::getNewMapName() {
     // Ensure default name doesn't already exist.
     int i = 0;
@@ -1559,6 +1617,7 @@ void Project::loadEventPixmaps(QList<Event*> objects) {
 
         object->spriteWidth = 16;
         object->spriteHeight = 16;
+        object->usingSprite = false;
         QString event_type = object->get("event_type");
         if (event_type == EventType::Object) {
             object->pixmap = QPixmap(":/images/Entities_16x16.png").copy(0, 0, 16, 16);
