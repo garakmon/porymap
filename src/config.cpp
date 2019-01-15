@@ -126,6 +126,17 @@ void PorymapConfig::parseConfigKeyValue(QString key, QString value) {
             logWarn(QString("Invalid config value for collision_opacity: '%1'. Must be an integer.").arg(value));
             this->collisionOpacity = 50;
         }
+    } else if (key == "region_map_dimensions") {
+        bool ok1, ok2;
+        QStringList dims = value.split("x");
+        int w = dims[0].toInt(&ok1);
+        int h = dims[1].toInt(&ok2);
+        if (!ok1 || !ok2) {
+            logWarn("Cannot parse region map dimensions. Using default values instead.");
+            this->regionMapDimensions = QSize(32, 20);
+        } else {
+            this->regionMapDimensions = QSize(w, h);
+        }
     } else {
         logWarn(QString("Invalid config key found in config file %1: '%2'").arg(this->getConfigFilepath()).arg(key));
     }
@@ -138,6 +149,8 @@ QMap<QString, QString> PorymapConfig::getKeyValueMap() {
     map.insert("pretty_cursors", this->prettyCursors ? "1" : "0");
     map.insert("map_sort_order", mapSortOrderMap.value(this->mapSortOrder));
     map.insert("collision_opacity", QString("%1").arg(this->collisionOpacity));
+    map.insert("region_map_dimensions", QString("%1x%2").arg(this->regionMapDimensions.width())
+                                                        .arg(this->regionMapDimensions.height()));
     return map;
 }
 
@@ -166,6 +179,10 @@ void PorymapConfig::setCollisionOpacity(int opacity) {
     // don't auto-save here because this can be called very frequently.
 }
 
+void PorymapConfig::setRegionMapDimensions(int width, int height) {
+    this->regionMapDimensions = QSize(width, height);//QString("%1x%2").arg(width).arg(height);
+}
+
 QString PorymapConfig::getRecentProject() {
     return this->recentProject;
 }
@@ -184,6 +201,10 @@ bool PorymapConfig::getPrettyCursors() {
 
 int PorymapConfig::getCollisionOpacity() {
     return this->collisionOpacity;
+}
+
+QSize PorymapConfig::getRegionMapDimensions() {
+    return this->regionMapDimensions;
 }
 
 const QMap<BaseGameVersion, QString> baseGameVersionMap = {

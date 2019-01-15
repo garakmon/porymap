@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QObject>
+#include <QSize>
 
 enum MapSortOrder {
     Group   =  0,
@@ -32,17 +33,20 @@ public:
         this->mapSortOrder = MapSortOrder::Group;
         this->prettyCursors = true;
         this->collisionOpacity = 50;
+        this->regionMapDimensions = QSize(32, 20);
     }
     void setRecentProject(QString project);
     void setRecentMap(QString map);
     void setMapSortOrder(MapSortOrder order);
     void setPrettyCursors(bool enabled);
     void setCollisionOpacity(int opacity);
+    void setRegionMapDimensions(int width, int height);
     QString getRecentProject();
     QString getRecentMap();
     MapSortOrder getMapSortOrder();
     bool getPrettyCursors();
     int getCollisionOpacity();
+    QSize getRegionMapDimensions();
 protected:
     QString getConfigFilepath();
     void parseConfigKeyValue(QString key, QString value);
@@ -54,6 +58,7 @@ private:
     MapSortOrder mapSortOrder;
     bool prettyCursors;
     int collisionOpacity;
+    QSize regionMapDimensions;
 };
 
 extern PorymapConfig porymapConfig;
