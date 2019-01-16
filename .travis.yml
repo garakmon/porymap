@@ -1,0 +1,23 @@
+language: cpp
+sudo: required
+dist: trusty
+
+matrix:
+  include:
+
+    - os: linux
+      compiler: gcc
+      install:
+        - sudo apt-get install -y qt5-default qttools5-dev-tools
+      script:
+        - qmake -config release
+        - make -j2
+
+    - os: osx
+      compiler: clang
+      install:
+        - brew update
+        - brew install qt
+      script:
+        - /usr/local/opt/qt/bin/qmake -config release
+        - make -j2

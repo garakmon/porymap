@@ -3,7 +3,7 @@
 
 #include <QString>
 #include <QObject>
-#include <QByteArrayList>
+#include <QByteArray>
 
 enum MapSortOrder {
     Group   =  0,

@@ -4,9 +4,11 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+CONFIG += testcase
 
 TARGET = porymap
 TEMPLATE = app
