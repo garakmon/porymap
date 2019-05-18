@@ -283,7 +283,7 @@ QJsonObject Event::buildWarpEventJSON(QMap<QString, QString> *mapNamesToMapConst
 QJsonObject Event::buildTriggerEventJSON()
 {
     QJsonObject triggerObj;
-    triggerObj["type"] = "trigger";
+    triggerObj["type"] = QString("trigger");
     triggerObj["x"] = this->getU16("x");
     triggerObj["y"] = this->getU16("y");
     triggerObj["elevation"] = this->getInt("elevation");
@@ -298,7 +298,7 @@ QJsonObject Event::buildTriggerEventJSON()
 QJsonObject Event::buildWeatherTriggerEventJSON()
 {
     QJsonObject weatherObj;
-    weatherObj["type"] = "weather";
+    weatherObj["type"] = QString("weather");
     weatherObj["x"] = this->getU16("x");
     weatherObj["y"] = this->getU16("y");
     weatherObj["elevation"] = this->getInt("elevation");
@@ -311,7 +311,7 @@ QJsonObject Event::buildWeatherTriggerEventJSON()
 QJsonObject Event::buildSignEventJSON()
 {
     QJsonObject signObj;
-    signObj["type"] = "sign";
+    signObj["type"] = QString("sign");
     signObj["x"] = this->getU16("x");
     signObj["y"] = this->getU16("y");
     signObj["elevation"] = this->getInt("elevation");
@@ -325,7 +325,7 @@ QJsonObject Event::buildSignEventJSON()
 QJsonObject Event::buildHiddenItemEventJSON()
 {
     QJsonObject hiddenItemObj;
-    hiddenItemObj["type"] = "hidden_item";
+    hiddenItemObj["type"] = QString("hidden_item");
     hiddenItemObj["x"] = this->getU16("x");
     hiddenItemObj["y"] = this->getU16("y");
     hiddenItemObj["elevation"] = this->getInt("elevation");
@@ -339,7 +339,7 @@ QJsonObject Event::buildHiddenItemEventJSON()
 QJsonObject Event::buildSecretBaseEventJSON()
 {
     QJsonObject secretBaseObj;
-    secretBaseObj["type"] = "secret_base";
+    secretBaseObj["type"] = QString("secret_base");
     secretBaseObj["x"] = this->getU16("x");
     secretBaseObj["y"] = this->getU16("y");
     secretBaseObj["elevation"] = this->getInt("elevation");

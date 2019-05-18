@@ -1,0 +1,33 @@
+
+language: cpp
+sudo: required
+dist: trusty
+
+matrix:
+  include:
+
+    - os: linux
+      compiler: gcc
+      install:
+        - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
+        - sudo apt-get update -qq
+        - sudo apt-get -y install qt56base qt56svg qt56tools
+        - source /opt/qt56/bin/qt56-env.sh
+        #- sudo apt-get install qtbase5-dev qtdeclarative5-dev libqt5webkit5-dev libsqlite3-dev
+        #- sudo apt-get install qt5-default qttools5-dev-tools
+        #- sudo apt-get update
+        #- sudo apt-get install -y qt56base qt56tools
+        #- sudo apt-get install -y qt5-qmake qt5-default qttools5-dev-tools qtbase5-dev
+      script:
+        - qmake -v
+        - qmake
+        - make -j2
+
+    - os: osx
+      compiler: clang
+      install:
+        - brew update
+        - brew install qt
+      script:
+        - /usr/local/opt/qt/bin/qmake
+        - make -j2
