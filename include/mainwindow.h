@@ -71,9 +71,7 @@ private slots:
     void on_tabWidget_currentChanged(int index);
 
     void on_actionUndo_triggered();
-
     void on_actionRedo_triggered();
-
     void on_actionZoom_In_triggered();
     void on_actionZoom_Out_triggered();
     void on_actionBetter_Cursors_triggered();
@@ -94,15 +92,10 @@ private slots:
     void updateObjects();
 
     void on_toolButton_Paint_clicked();
-
     void on_toolButton_Select_clicked();
-
     void on_toolButton_Fill_clicked();
-
     void on_toolButton_Dropper_clicked();
-
     void on_toolButton_Move_clicked();
-
     void on_toolButton_Shift_clicked();
 
     void onOpenMapListContextMenu(const QPoint &point);
@@ -228,6 +221,8 @@ private:
     QString getEventGroupFromTabWidget(QWidget *tab);
 
     bool isProjectOpen();
+
+    void loadPlugins();
 };
 
 enum MapListUserRoles {

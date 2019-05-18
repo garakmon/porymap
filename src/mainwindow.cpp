@@ -27,6 +27,7 @@
 #include <QSysInfo>
 #include <QDesktopServices>
 #include <QMatrix>
+#include <QPluginLoader>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -139,6 +140,10 @@ void MainWindow::initMapSortOrder() {
     QAction* sortOrder = ui->toolButton_MapSortOrder->menu()->actions()[mapSortOrder];
     ui->toolButton_MapSortOrder->setIcon(sortOrder->icon());
     sortOrder->setChecked(true);
+}
+
+void MainWindow::loadPlugins() {
+    //
 }
 
 void MainWindow::setProjectSpecificUIVisibility()
