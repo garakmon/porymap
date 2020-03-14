@@ -36,19 +36,33 @@ void MonTabWidget::populate() {
 }
 
 void MonTabWidget::askActivateTab(int tabIndex, QPoint menuPos) {
-    if (activeTabs[tabIndex]) return;
-
     QMenu contextMenu(this);
 
     QString tabText = tabBar()->tabText(tabIndex);
-    QAction actionActivateTab(QString("Add %1 data for this map...").arg(tabText), this);
+    QAction actionActivateTab(QString("Add %1 encounters for this map...").arg(tabText), this);
     connect(&actionActivateTab, &QAction::triggered, [=](){
         clearTableAt(tabIndex);
         populateTab(tabIndex, getDefaultMonInfo(editor->project->wildMonFields.at(tabIndex)), tabText);
         editor->saveEncounterTabData();
         setCurrentIndex(tabIndex);
     });
-    contextMenu.addAction(&actionActivateTab);
+    QAction actionDeactivateTab(QString("Delete %1 encounters for this map...").arg(tabText), this);
+    connect(&actionDeactivateTab, &QAction::triggered, [=](){
+        clearTableAt(tabIndex);
+        WildPokemonHeader &header = editor->project->wildMonData[editor->map->constantName][editor->ui->comboBox_EncounterGroupLabel->currentText()];
+        header.wildMons.remove(tabText);
+        setTabActive(tabIndex, false);
+
+        if (header.wildMons.isEmpty()) {
+            // we deleted the last field, hide this table
+            //this->parentWidget()->remove(this);
+            //editor->project->wildMonData[editor->map->constantName].remove(editor->ui->comboBox_EncounterGroupLabel->currentText());
+        }
+
+        // select next active tab
+    });
+    if (activeTabs[tabIndex]) contextMenu.addAction(&actionDeactivateTab);
+    else contextMenu.addAction(&actionActivateTab);
     contextMenu.exec(mapToGlobal(menuPos));
 }
 

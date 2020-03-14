@@ -641,6 +641,7 @@ void Project::saveWildMonData() {
             for (QString fieldName : encounterHeader.wildMons.keys()) {
                 QJsonObject fieldObject;
                 WildMonInfo monInfo = encounterHeader.wildMons.value(fieldName);
+                if (!monInfo.active) continue;
                 fieldObject["encounter_rate"] = monInfo.encounterRate;
                 QJsonArray monArray;
                 for (WildPokemon wildMon : monInfo.wildPokemon) {
