@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QApplication::setApplicationDisplayName("porymap");
     QApplication::setWindowIcon(QIcon(":/icons/porymap-icon-2.ico"));
     ui->setupUi(this);
-
+    this->initCustomUI();
     this->initWindow();
     if (!this->openRecentProject()) {
         // Re-initialize everything to a blank slate if opening the recent project failed.
@@ -64,7 +64,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::initWindow() {
     porymapConfig.load();
-    this->initCustomUI();
     this->initExtraSignals();
     this->initExtraShortcuts();
     this->initEditor();
